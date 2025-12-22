@@ -55,9 +55,14 @@ This project demonstrates the full ETL lifecycle for the **AdventureWorks** data
 
 ### 🔹 Concatenate Customer Names
 ```python
-from pyspark.sql.functions import concat, col, lit
+from pyspark.sql.functions import count
 
-df_cus = df_cus.withColumn(
-    "FullName",
+df_sales.groupBy("OrderDate") \
+    .agg(count("OrderNumber").alias("Total_order")) \
+    .display()
+
+df_sales.write.format("delta") \
+    .mode("append") \
+    .save("abfss://silver@awstoragedeltalake1.dfs.core.windows.net/AdventureWorks_Returns")
     concat(col("Prefix"), lit(" "), col("FirstName"), lit(" "), col("LastName"))
 )
