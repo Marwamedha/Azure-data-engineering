@@ -1,6 +1,4 @@
 # Adventure-Works-Data-Engineering-Project
-
-# Adventure-Works-Data-Engineering-Project
 [Azure Databricks Notebook Link](https://adb-7405616406532583.3.azuredatabricks.net/editor/notebooks/286303941860283?o=7405616406532583)
 
 # 📦 Retail & Sales ETL Project – Azure Databricks
@@ -45,7 +43,8 @@ This project demonstrates the full ETL lifecycle for the **AdventureWorks** data
 
 ## 🧱 Delta Lake & Parquet Layering
 
-- **Silver Layer**: Cleansed and enriched data from raw sources
+- **Silver Layer**: Cleansed and enriched data from raw sources  
+  - [Explore Silver Layer Notebook](https://github.com/Marwamedha/Adventure-Works-Data-Engineering-Project/blob/main/Sliver_layer.ipynb)
 - **Gold Layer**: Aggregated datasets ready for BI or reporting
 - **Append Mode**: Efficiently adds new data without overwriting existing tables
 - **Partitioning**: Organized by `OrderDate` for performance and cost optimization  
@@ -62,4 +61,3 @@ df_cus = df_cus.withColumn(
     "FullName",
     concat(col("Prefix"), lit(" "), col("FirstName"), lit(" "), col("LastName"))
 )
-
