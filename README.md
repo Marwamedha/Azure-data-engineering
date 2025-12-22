@@ -55,14 +55,85 @@ This project demonstrates the full ETL lifecycle for the **AdventureWorks** data
 
 ### 🔹 Concatenate Customer Names
 ```python
-from pyspark.sql.functions import count
+# AdventureWorks ETL Pipeline – All Code in One Cell
 
-df_sales.groupBy("OrderDate") \
-    .agg(count("OrderNumber").alias("Total_order")) \
-    .display()
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import concat, col, lit, regexp_replace, count
 
+# -----------------------------
+# 1️⃣ Create Spark Session
+# -----------------------------
+spark = SparkSession.builder \
+    .appName("AdventureWorks ETL") \
+    .getOrCreate()
+
+# -----------------------------
+# 2️⃣ Load Raw Data
+# -----------------------------
+# Example paths, update to your ADLS Gen2 paths
+df_cus = spark.read.format("csv").option("header", True).load("/mnt/raw/Customer.csv")
+df_sales = spark.read.format("csv").option("header", True).load("/mnt/raw/Sales.csv")
+
+# -----------------------------
+# 3️⃣ Transformations
+# -----------------------------
+
+# Concatenate full customer name
+df_cus = df_cus.withColumn(
+    "FullName",
+    concat(col("Prefix"), lit(" "), col("FirstName"), lit(" "), col("LastName"))
+)
+
+# Replace 'S' with 'T' in OrderNumber
+df_sales = df_sales.withColumn(
+    'OrderNumber',
+    regexp_replace(col('OrderNumber'), 'S', 'T')
+)
+
+# -----------------------------
+# 4️⃣ Aggregations
+# -----------------------------
+df_order_agg = df_sales.groupBy("OrderDate") \
+    .agg(count("OrderNumber").alias("Total_order"))
+
+# Show aggregated results
+df_order_agg.display()
+
+# -----------------------------
+# 5️⃣ Write to ADLS Gen2 (Delta format)
+# -----------------------------
 df_sales.write.format("delta") \
     .mode("append") \
     .save("abfss://silver@awstoragedeltalake1.dfs.core.windows.net/AdventureWorks_Returns")
-    concat(col("Prefix"), lit(" "), col("FirstName"), lit(" "), col("LastName"))
-)
+
+# -----------------------------
+# 6️⃣ Example: Second Lowest Student Score
+# -----------------------------
+python_student = [['Harry', 37.21], ['Berry', 37.21], ['Tina', 37.2], ['Akriti', 41], ['Harsh', 39]]
+
+# Get all scores
+scores = [student[1] for student in python_student]
+
+# Second lowest score
+second_lowest = sorted(set(scores))[1]
+
+# Names with second lowest score
+names = [student[0] for student in python_student if student[1] == second_lowest]
+
+# Print in alphabetical order
+print("Students with second lowest score:")
+for name in sorted(names):
+    print(name)
+
+# -----------------------------
+# 7️⃣ Example: Average Score for a Student
+# -----------------------------
+n = 3
+student_marks = {
+    'Alice': [50, 60, 70],
+    'Bob': [80, 85, 90],
+    'Charlie': [60, 75, 85]
+}
+query_name = 'Alice'
+average_score = sum(student_marks[query_name])/len(student_marks[query_name])
+print(f"\nAverage score for {query_name}: {average_score:.2f}")
