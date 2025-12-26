@@ -1,4 +1,4 @@
-# Adventure-Works-Data-Engineering-Project
+# Azure data migration
 
 ![Full Project Flow](https://github.com/Marwamedha/Adventure-Works-Data-Engineering-Project/blob/main/Azure%20data%20engineering%20process%20flowchart%20(1).png?raw=true)
 
