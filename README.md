@@ -109,34 +109,5 @@ df_sales.write.format("delta") \
     .mode("append") \
     .save("abfss://silver@awstoragedeltalake1.dfs.core.windows.net/AdventureWorks_Returns")
 
-# -----------------------------
-# 6️⃣ Example: Second Lowest Student Score
-# -----------------------------
-python_student = [['Harry', 37.21], ['Berry', 37.21], ['Tina', 37.2], ['Akriti', 41], ['Harsh', 39]]
-
-# Get all scores
-scores = [student[1] for student in python_student]
-
-# Second lowest score
-second_lowest = sorted(set(scores))[1]
-
-# Names with second lowest score
-names = [student[0] for student in python_student if student[1] == second_lowest]
-
-# Print in alphabetical order
-print("Students with second lowest score:")
-for name in sorted(names):
-    print(name)
-
-# -----------------------------
-# 7️⃣ Example: Average Score for a Student
-# -----------------------------
-n = 3
-student_marks = {
-    'Alice': [50, 60, 70],
-    'Bob': [80, 85, 90],
-    'Charlie': [60, 75, 85]
-}
-query_name = 'Alice'
 average_score = sum(student_marks[query_name])/len(student_marks[query_name])
 print(f"\nAverage score for {query_name}: {average_score:.2f}")
