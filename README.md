@@ -1,6 +1,7 @@
 # Adventure-Works-Data-Engineering-Project
 
 [Azure Databricks Notebook Link](https://github.com/Marwamedha/Adventure-Works-Data-Engineering-Project/blob/main/Azure%20data%20engineering%20process%20flowchart%20(1).png)
+![Data Warehouse Diagram](https://github.com/Marwamedha/Adventure-Works-Data-Engineering-Project/blob/main/Azure%20data%20engineering%20process%20flowchart%20(1).png?raw=true)
 
 [Azure Databricks Notebook Link](https://adb-7405616406532583.3.azuredatabricks.net/editor/notebooks/286303941860283?o=7405616406532583)
 
