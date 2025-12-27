@@ -18,26 +18,6 @@ This project demonstrates the full ETL lifecycle for the **AdventureWorks** data
 - Automate data storage and management in **Silver/Gold layers** of the data lake.
 
 ---
-### 🏗️ Architecture:
-
-The solution follows the Medallion Architecture, which organizes data into Bronze, Silver, and Gold layers, ensuring data quality, scalability, and optimized analytics.
-
-#🧱 Bronze Layer
--Stores raw ingested data exactly as received
--Data is landed in Azure Data Lake Storage Gen2
--Acts as the system of record
-
-#🧱 Silver Layer
--Data is cleaned, validated, and enriched
--Business rules are applied using Azure Databricks
--Ensures high-quality, structured data
-
-#🧱 Gold Layer
--Contains aggregated and analytics-ready datasets
--Optimized for reporting and querying
--Consumed by Azure Synapse Analytics & Power BI
-
----
 
 ## ⚙️ Technologies Used
 - **Azure Databricks** – Notebook development and Spark processing  
@@ -137,6 +117,14 @@ print(f"\nAverage score for {query_name}: {average_score:.2f}")
 
 ---
 
+## ⚙️ Technologies Used
+- **Azure Databricks** – Notebook development and Spark processing  
+- **PySpark** – DataFrame transformations, aggregations, and cleansing  
+- **Azure Data Lake Storage Gen2** – Data storage (Parquet & Delta)  
+- **Delta Lake** – ACID-compliant storage for reliable ETL pipelines  
+- **Python** – Scripting, functions, and logic  
+
+---
  📊 Visualizations
 
 - **The Power BI dashboard includes:
