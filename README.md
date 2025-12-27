@@ -64,7 +64,9 @@ This project demonstrates the full ETL lifecycle for the **AdventureWorks** data
 
 ## ⚙️ 📊 Visualizations
 
-- **The Power BI dashboard**
+![The Power BI dashboard](https://github.com/Marwamedha/Azure-data-engineering/blob/main/Images/Azure%20migration%20dashboard.png?raw=true)
+
+- ****
   – 📈 Sales performance metrics  
   - **💰 Product profitability analysis
   - **👥 Customer demographics & distribution
