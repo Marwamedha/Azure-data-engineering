@@ -1,5 +1,5 @@
 # 🚀 AdventureWorks2017LT – Azure Migration & Analytics Project
-### 🔍📌 Overview
+## 📌 Overview
 
 ![Full Project Flow](https://github.com/Marwamedha/Adventure-Works-Data-Engineering-Project/blob/main/Azure%20data%20engineering%20process%20flowchart%20(1).png?raw=true)
 
