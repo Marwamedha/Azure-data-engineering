@@ -60,80 +60,14 @@ This project demonstrates the full ETL lifecycle for the **AdventureWorks** data
 ## 🛠️ Project Code Highlights
 
 ### 🔹 Concatenate Customer Names
-```python
-# AdventureWorks ETL Pipeline – All Code in One Cell
 
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import concat, col, lit, regexp_replace, count
 
-# -----------------------------
-# 1️⃣ Create Spark Session
-# -----------------------------
-spark = SparkSession.builder \
-    .appName("AdventureWorks ETL") \
-    .getOrCreate()
+## ⚙️ 📊 Visualizations
 
-# -----------------------------
-# 2️⃣ Load Raw Data
-# -----------------------------
-# Example paths, update to your ADLS Gen2 paths
-df_cus = spark.read.format("csv").option("header", True).load("/mnt/raw/Customer.csv")
-df_sales = spark.read.format("csv").option("header", True).load("/mnt/raw/Sales.csv")
-
-# -----------------------------
-# 3️⃣ Transformations
-# -----------------------------
-
-# Concatenate full customer name
-df_cus = df_cus.withColumn(
-    "FullName",
-    concat(col("Prefix"), lit(" "), col("FirstName"), lit(" "), col("LastName"))
-)
-
-# Replace 'S' with 'T' in OrderNumber
-df_sales = df_sales.withColumn(
-    'OrderNumber',
-    regexp_replace(col('OrderNumber'), 'S', 'T')
-)
-
-# -----------------------------
-# 4️⃣ Aggregations
-# -----------------------------
-df_order_agg = df_sales.groupBy("OrderDate") \
-    .agg(count("OrderNumber").alias("Total_order"))
-
-# Show aggregated results
-df_order_agg.display()
-
-# -----------------------------
-# 5️⃣ Write to ADLS Gen2 (Delta format)
-# -----------------------------
-df_sales.write.format("delta") \
-    .mode("append") \
-    .save("abfss://silver@awstoragedeltalake1.dfs.core.windows.net/AdventureWorks_Returns")
-
-average_score = sum(student_marks[query_name])/len(student_marks[query_name])
-print(f"\nAverage score for {query_name}: {average_score:.2f}")
-
----
-
-## ⚙️ Technologies Used
-- **Azure Databricks** – Notebook development and Spark processing  
-- **PySpark** – DataFrame transformations, aggregations, and cleansing  
-- **Azure Data Lake Storage Gen2** – Data storage (Parquet & Delta)  
-- **Delta Lake** – ACID-compliant storage for reliable ETL pipelines  
-- **Python** – Scripting, functions, and logic  
-
----
- 📊 Visualizations
-
-- **The Power BI dashboard includes:
-
-- **📈 Sales performance metrics
-
-- **💰 Product profitability analysis
-
-- **👥 Customer demographics & distribution
+- **The Power BI dashboard**
+  – 📈 Sales performance metrics  
+  - **💰 Product profitability analysis
+  - **👥 Customer demographics & distribution
 
 ---
 
